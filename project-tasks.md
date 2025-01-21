@@ -14,8 +14,9 @@
 ---
 
 #### **Phase 3: Database Schema Design and Setup**  
-1. **Design database-schema.md**  
-2. **Database Schema Creation**  
+1. **Design database-schema.md**
+2. **Create Entity-Relationship Diagram (ERD)**
+3. **Database Schema Creation**
 
 ---
 
