@@ -153,7 +153,6 @@
 | `product_id`         | INT (Foreign Key)                  | معرف المنتج (يرتبط بجدول المنتجات).            |
 | `card_id`            | INT (Foreign Key)                  | معرف البطاقة المستخدمة للدفع.  |
 | `quantity`           | INT                                | كمية المنتج في الطلب.                          |
-| `shipping_price`     | INT                                | سعر الشحن.                          |
 | `price_at_order`     | DECIMAL(10, 2)                     | سعر المنتج في وقت الطلب (لحفظ السعر التاريخي). |
 | `payment_policy_id`  | INT (Foreign Key)                  | معرف سياسة الدفع المعتمدة.                     |
 | `shipping_policy_id` | INT (Foreign Key)                  | معرف سياسة الشحن المعتمدة.                     |
