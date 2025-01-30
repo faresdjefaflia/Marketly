@@ -157,7 +157,7 @@
 | `payment_policy_id`  | INT (Foreign Key)                  | معرف سياسة الدفع المعتمدة.                     |
 | `shipping_policy_id` | INT (Foreign Key)                  | معرف سياسة الشحن المعتمدة.                     |
 | `return_policy_id`   | INT (Foreign Key)                  | معرف سياسة الإرجاع المعتمدة.                   |
-| `status`             | ENUM('معالجة', 'مشحونة', 'مستلمة') | حالة الطلب لهذا المنتج.                        |
+| `status`             | ENUM('معالجة', 'مشحونة', 'مستلمة', حذف) | حالة الطلب لهذا المنتج.                        |
 | `created_at`         | DATETIME                           | تاريخ إضافة التفاصيل.                          |
 
 ---
