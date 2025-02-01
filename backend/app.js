@@ -4,9 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// تحديث المسارات بناءً على هيكل src
+
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/admin/users');
+var adminRouter = require('./src/routes/admin/admin');
 
 var app = express();
 
@@ -22,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/auth/admin/users', usersRouter);
+app.use('/api/auth/admin', adminRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
