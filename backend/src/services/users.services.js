@@ -5,6 +5,6 @@ module.exports.getUsers = async () => {
     const users = await userModels.poolUsers();
     return users;
   } catch (err) {
-    throw new Error('Error fetching users: ' + err.message);
+    throw new Error(err.message);
   }
-}
+};

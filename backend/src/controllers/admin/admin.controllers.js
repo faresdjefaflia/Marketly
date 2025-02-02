@@ -1,6 +1,6 @@
 const encryptPasswordServices = require('../../services/encryptPassword.services');
 
-module.exports.loginAdmin = (req, res) => {
+module.exports.loginAdmin = async (req, res) => {
   /**
   @desc Admin login
   @route /admin/login
@@ -12,7 +12,18 @@ module.exports.loginAdmin = (req, res) => {
   @etape04 Generate a JWT token if authentication is successful.
   @etape05 Return the token and admin details in the response.
  */
-  res.status(200).json({message: 'welcome admin'})
+  try {
+    const { email, password } = req.body;
+    const match = await encryptPasswordServices.comparePassword(email, password);
+    if (match) {
+      return res.status(200).json({message: 'welcome admin'})
+    };
+    return res.status(200).json({message: 'you cant login now'})
+    
+  }
+  catch (err) {
+    res.status(500).json({message: err.message})
+  }
 }
 
 module.exports.addAdmin = async (req, res) => {
@@ -32,7 +43,7 @@ module.exports.addAdmin = async (req, res) => {
   */
   try {
     const { password } = req.body
-    const passwordEncrypt = await encryptPasswordServices(password)
+    const passwordEncrypt = await encryptPasswordServices.encryptPassword(password)
     console.log(passwordEncrypt)
     res.status(200).json(passwordEncrypt)
   }
