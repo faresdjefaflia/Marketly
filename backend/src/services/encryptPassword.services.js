@@ -18,7 +18,6 @@ module.exports = {
       const user = await userModels.poolUserWithEmail(email);
       const hash = await user.password;
       const match = await bcrypt.compare(password, hash);
-      console.log('from services OK')
       return match;
     }
     catch (err) {

@@ -1,4 +1,5 @@
 const encryptPasswordServices = require('../../services/encryptPassword.services');
+const validateDataReqServices = require('../../services/validateDataReq.services');
 
 module.exports.loginAdmin = async (req, res) => {
   /**
@@ -14,15 +15,25 @@ module.exports.loginAdmin = async (req, res) => {
  */
   try {
     const { email, password } = req.body;
+    //validate with joi
+    const error = await validateDataReqServices.validateAdminLogin(req.body);
+    if (error) {
+      return res.status(400).json(error.details[0].message)
+    };
+    //validate if admin in database
+
+    //validate is user a admin
+    //compare password input with hash
     const match = await encryptPasswordServices.comparePassword(email, password);
     if (match) {
       return res.status(200).json({message: 'welcome admin'})
     };
+    //create token with jwt
     return res.status(200).json({message: 'you cant login now'})
     
   }
   catch (err) {
-    res.status(500).json({message: err.message})
+    res.status(500).json({ message: err.message })
   }
 }
 
