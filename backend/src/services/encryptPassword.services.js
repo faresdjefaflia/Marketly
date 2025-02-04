@@ -13,10 +13,8 @@ module.exports = {
     }
   },
 
-  comparePassword: async (email, password) => {
+  comparePassword: async (password, hash) => {
     try {
-      const user = await userModels.poolUserWithEmail(email);
-      const hash = await user.password;
       const match = await bcrypt.compare(password, hash);
       return match;
     }
