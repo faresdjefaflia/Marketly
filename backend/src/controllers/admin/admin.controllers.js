@@ -1,36 +1,29 @@
 const encryptPasswordServices = require('../../services/encryptPassword.services');
 const validateDataReqServices = require('../../services/validateDataReq.services');
-
+const validateUserInData = require('../../services/validateUserInData.services');
+const createTokenServices = require('../../services/createToken.services')
 module.exports.loginAdmin = async (req, res) => {
-  /**
-  @desc Admin login
-  @route /admin/login
-  @method POST
-  @access private (Admins only)
-  @etape01 Extract email and password from request body.
-  @etape02 Check if the admin exists in the database.
-  @etape03 Compare the provided password with the hashed password.
-  @etape04 Generate a JWT token if authentication is successful.
-  @etape05 Return the token and admin details in the response.
- */
   try {
     const { email, password } = req.body;
     //validate with joi
     const error = await validateDataReqServices.validateAdminLogin(req.body);
     if (error) {
-      return res.status(400).json(error.details[0].message)
+      return res.status(400).json(error.details[0])
     };
     //validate if admin in database
-
     //validate is user a admin
+    const user = await validateUserInData.validateUser(email);
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({message: "user not found"})
+    };
     //compare password input with hash
     const match = await encryptPasswordServices.comparePassword(email, password);
-    if (match) {
-      return res.status(200).json({message: 'welcome admin'})
+    if (!match) {
+      return res.status(403).json({message: 'you cant login now'})
     };
     //create token with jwt
-    return res.status(200).json({message: 'you cant login now'})
-    
+    const token = await createTokenServices.token(user)
+    return res.status(200).json({message: 'welcome admin', token: token})
   }
   catch (err) {
     res.status(500).json({ message: err.message })
