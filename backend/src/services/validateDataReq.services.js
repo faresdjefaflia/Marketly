@@ -9,5 +9,13 @@ module.exports = {
     catch (err) {
       throw new Error(err.message);
     }
+  },
+  validateAdminAdd: async (data) => {
+    try {
+      const error = await joiUtils.joiAddAdmin(data);
+      return error;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }

@@ -2,7 +2,7 @@ const encryptPasswordServices = require('../../services/encryptPassword.services
 const validateDataReqServices = require('../../services/validateDataReq.services');
 const validateUserInData = require('../../services/validateUserInData.services');
 const createTokenServices = require('../../services/createToken.services');
-
+const adminsServices = require("../../services/admin/admins.services");
 
   /**
    * Handles admin login process.
@@ -47,7 +47,7 @@ module.exports.loginAdmin = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 أيام
     });
 
-    return res.status(200).json({ message: "Welcome admin" });
+    return res.status(200).json({ message: "Welcome admin", token: token });
     
   } catch (err) {
     console.error(err); // طباعة الخطأ بالكامل لسهولة التتبع
@@ -56,25 +56,28 @@ module.exports.loginAdmin = async (req, res) => {
 };
 
 module.exports.addAdmin = async (req, res) => {
-  /**
-  @desc Handles admin registration process.
-  @route /admin
-  @method POST
-  @access private (Restricted to super admin)
-  @etape01 Extract admin data from the request body.
-  @etape02 Validate input data (e.g., email format, password strength).
-  @etape03 Check if the admin already exists in the database.
-  @etape04 Hash the password before storing it.
-  @etape05 Assign admin role and permissions.
-  @etape06 Save the admin data into the database.
-  @etape07 Generate a JWT token for authentication.
-  @etape08 Return a success response with admin details and token.
-  */
   try {
-    const { password } = req.body
+    // Validate authentication and ensure the user has "admin" privileges
+    // /src/middlewares/auth.js
+    console.log(req.user);
+    // Validate the input data from the request (e.g., check if required fields are present and correct)
+    const error = await validateDataReqServices.validateAdminAdd(req.body)
+    if(error) return res.status(403).json(error.details[0].message)
+    // Verify that the user being added doesn't already exist in the database
+    const user = await validateUserInData.validateUser(req.body.email)
+    if(user) return res.status(403).json({message: "Invalid credentials"})
+    // Encrypt the password using a secure algorithm (e.g., bcrypt)
+    const { name, email, password, role } = req.body;
     const passwordEncrypt = await encryptPasswordServices.encryptPassword(password)
-    console.log(passwordEncrypt)
-    res.status(200).json(passwordEncrypt)
+    // Insert the new admin's data into the database with the "admin" role
+    const newAdminData = {
+      name: name,
+      email: email,
+      password: passwordEncrypt,
+      role: role
+    };
+    const newAdmin = await adminsServices.addAdminToData(newAdminData);
+    if(newAdmin) return res.status(200).json({message: "admin is add"})
   }
   catch (err) {
     res.status(500).json({message: err.message})
