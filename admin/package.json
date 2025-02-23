@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@flaticon/flaticon-uicons": "^3.3.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@pinia/nuxt": "^0.10.1",
     "@tailwindcss/vite": "^4.0.8",

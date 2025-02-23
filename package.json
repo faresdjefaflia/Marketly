@@ -1,0 +1,21 @@
+{
+  "name": "marketly",
+  "version": "1.0.0",
+  "description": "The project is a fully integrated e-commerce store with an admin panel. It supports product display, customer registration, and payments, and features a multi-category structure. The admin dashboard allows easy product management and store control.",
+  "homepage": "https://github.com/faresdjefaflia/Marketly#readme",
+  "bugs": {
+    "url": "https://github.com/faresdjefaflia/Marketly/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faresdjefaflia/Marketly.git"
+  },
+  "license": "ISC",
+  "author": "faresdjefaflia",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
