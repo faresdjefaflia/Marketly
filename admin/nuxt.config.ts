@@ -17,6 +17,10 @@ export default defineNuxtConfig({
       },
       display: 'swap',
       preconnect: true
-  }], '@pinia/nuxt']
-  
+  }], '@pinia/nuxt'],
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:5000/api'
+    }
+  }
 })

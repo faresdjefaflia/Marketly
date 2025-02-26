@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/admin/auth');
@@ -11,7 +11,7 @@ var adminRouter = require('./routes/admin/auth/admins');
 
 
 var app = express();
-
+app.use(express.json());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//cors 
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/api/admin', authRouter);
