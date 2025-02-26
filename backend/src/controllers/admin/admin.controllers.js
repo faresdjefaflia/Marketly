@@ -40,14 +40,13 @@ module.exports.loginAdmin = async (req, res) => {
 
     // Create token with JWT
     const token = await createTokenServices.token(user);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "Strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 أيام
+    res.cookie('token', token, {  
+      secure: true,   
+      sameSite: 'Strict', 
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
-
-    return res.status(200).json({ message: "Welcome admin", token: token });
+    return res.end();
+    //return res.status(200).json({ message: "Welcome admin" });
     
   } catch (err) {
     console.error(err); // طباعة الخطأ بالكامل لسهولة التتبع

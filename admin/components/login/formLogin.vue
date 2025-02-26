@@ -22,13 +22,12 @@
     try {
       const res = await $fetch(`${config.public.apiBase}/admin/login`, {
         method: 'POST',
-        body: dataLogin
+        body: dataLogin,
+        credentials: 'include'
       });
-      console.log(res)
+      navigateTo('/admin/reports/')
     } catch (err) {
-      // console.log(err.data.message)
       error.value = err.data.message;
-      console.log(error.value)
     }
   }
 </script>
