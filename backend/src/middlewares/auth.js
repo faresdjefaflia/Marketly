@@ -4,10 +4,10 @@ require('dotenv').config();
 module.exports = {
   authAdmin: async (req, res, next) => {
     const token = req.header('Authorization');
-    if (!token) return res.status(400).json({ token: false });
+    if (!token) return res.status(400).json({ login: false });
     try {
       const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
-      if (!decoded.role == "admin") return res.status(400).json({ token: false });
+      if (!decoded.role == "admin") return res.status(400).json({ login: false });
       req.user = decoded
       next();
     } catch (err) {
