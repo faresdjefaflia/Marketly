@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>reports</h1>
+    <NuxtLink to="/admin/addadmin">ADD AMIN</NuxtLink>
   </div>
 </template>
 

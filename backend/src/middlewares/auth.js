@@ -11,7 +11,7 @@ module.exports = {
       req.user = decoded
       next();
     } catch (err) {
-      return res.status(500).json({message: err.message})
+      return res.status(500).json({login: false})
     }
   }
 }
