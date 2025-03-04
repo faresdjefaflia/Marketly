@@ -1,9 +1,19 @@
 <template>
-  <main>
+  <div class="page">
     <Header />
-    <slot />
-    <!-- <footer class="bg-01 p-1.5 text-03 text-center">
-      fares djefaflia
-    </footer> -->
-  </main>
+    <main class="flex">
+      <Sidebar v-if="login" />
+      <section class="w-full">
+        <slot />
+      </section>
+    </main>
+  </div>
 </template>
+
+<script setup>
+import { computed } from 'vue';
+  
+const auth = useAuthStore()
+const login = computed(() => auth.login );
+
+</script>

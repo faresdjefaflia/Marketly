@@ -9,7 +9,7 @@
           <i class="fi fi-rs-user flex h-[16px]"></i>
         </div>
         <div v-else @click="logout" class="bg-02 text-01 flex items-center justify-center rounded-[3px] w-[30px] h-[30px] cursor-pointer">
-          <i class="fi fi-br-sign-out-alt flex h-[16px]"></i>
+          <i class="fi fi-rr-exit flex h-[16px]"></i>
         </div>
       </div>
     </section>
