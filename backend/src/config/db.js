@@ -10,5 +10,8 @@ module.exports =  mariadb.createPool({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   connectionLimit: 5,
+  multipleStatements: true,
+  supportBigNumbers: true,
+  bigNumberStrings: true
 });
 

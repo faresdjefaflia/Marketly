@@ -16,5 +16,13 @@ module.exports = {
     } catch (err) {
       throw new Error(err.message);
     }
+  },
+  editRoleForAdmin: async (role, id) => {
+    try {
+      const edit = await adminsModules.editRole(role, id);
+      return edit;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }

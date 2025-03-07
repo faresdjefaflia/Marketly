@@ -19,5 +19,13 @@ module.exports = {
     } catch (err) {
       throw new Error(err.message);
     }
+  },
+  editRole: async (role, id) => {
+    try {
+      const edit = await dataBase.query('UPDATE users SET role = ? WHERE id = ?; SELECT role FROM users WHERE id = ?', [role, id, id]);
+      return edit
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }

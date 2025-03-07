@@ -83,5 +83,28 @@ module.exports = {
     });
     //send admins to frontend
     return res.status(200).json({admins: filterAdmins})
+  },
+  editAdmin: async (req, res) => {
+    // Extract the role from the request body (new role to be assigned)
+    const role = req.body.role;
+    
+    // Extract the admin ID from the request parameters
+    const id = req.params.id;
+
+    try {
+        // Call the service function to update the admin's role in the database
+        const edit = await adminsServices.editRoleForAdmin(role, id);
+
+        // Check if any row was affected (i.e., if the admin exists and role changed)
+        if (!edit[0] || edit[0].affectedRows === 0) {
+            return res.status(404).json({ message: "Admin not found or role unchanged" });
+        }
+
+        // Return success message if the update was successful
+        return res.status(200).json({ message: "Role updated successfully", role: edit[1][0].role });
+    } catch (err) {
+        // Handle server errors and return an error response
+        res.status(500).json({ message: err.message });
+    }
   }
 }
