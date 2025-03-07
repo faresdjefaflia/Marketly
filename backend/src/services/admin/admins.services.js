@@ -8,5 +8,13 @@ module.exports = {
     } catch (err) {
       throw new Error(err.message)
     }
+  },
+  showAllAdmins: async () => {
+    try {
+      const admins = await adminsModules.poolAdmins();
+      return admins;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }

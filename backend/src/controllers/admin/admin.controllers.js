@@ -83,7 +83,7 @@ module.exports.addAdmin = async (req, res) => {
   }
 }
 
-module.exports.showAllAdmins = (req, res) => {
+module.exports.showAllAdmins = async (req, res) => {
   /**
   @desc Retrieves the list of all admins.
   @route /admin
@@ -92,7 +92,21 @@ module.exports.showAllAdmins = (req, res) => {
   @etape01 Authenticate the request and verify super admin access.
   @etape02 Query the database to fetch all admins.
   @etape03 Return the list of admins in the response.
- */
+  */
+  //pool all admins from database
+  const admins = await adminsServices.showAllAdmins();
+  const filterAdmins = admins.map((admin) => {
+    return {
+      id: admin.id,
+      name: admin.name,
+      email: admin.email,
+      address: admin.address,
+      created_at: admin.created_at
+    }
+  });
+  return res.status(200).json({admins: filterAdmins})
 
-  res.status(200).json({message: "this all admins list"})
+  //edit data for send to frontend
+  //send admins to frontend
 }
+

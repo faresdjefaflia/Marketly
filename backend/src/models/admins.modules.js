@@ -11,5 +11,13 @@ module.exports = {
     } catch (err) {
       throw new Error(err.message);
     }
+  },
+  poolAdmins: async () => {
+    try {
+      const admins = await dataBase.query("SELECT * FROM users WHERE role = ?", ["admin"]);
+      return admins;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }
