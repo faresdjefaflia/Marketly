@@ -90,7 +90,7 @@ module.exports = {
     
     // Extract the admin ID from the request parameters
     const id = req.params.id;
-
+    if (id == 1) return res.status(500).json({message: "sorry you cant edit this admin now"})
     try {
         // Call the service function to update the admin's role in the database
         const edit = await adminsServices.editRoleForAdmin(role, id);
@@ -105,6 +105,22 @@ module.exports = {
     } catch (err) {
         // Handle server errors and return an error response
         res.status(500).json({ message: err.message });
+    }
+  },
+  deleteAdmin: async (req, res) => {
+    try {
+      //Store a variable for the ID of the account to be deleted.
+      const id = req.params.id;
+      if (id == 1) return res.status(500).json({message: "sorry you cant delete this admin now", result: false})
+      //send req to database for delete account
+      const deleteUser = await adminsServices.deleteAdmin(id);
+      //look if delete is bad and send res to frontend with result
+      if(!deleteUser[0] || deleteUser[0].affectedRows === 0 ) return res.status(404).json({message: "Admin not found", result: false})
+      //if good send message and result to frontend
+      return res.status(200).json({message: "admin is delete", result: true, admins: deleteUser[1]})
+    } catch (err) {
+      throw new Error(err.message);
+      
     }
   }
 }

@@ -27,5 +27,14 @@ module.exports = {
     } catch (err) {
       throw new Error(err.message);
     }
+  },
+  deleteUser: async (id) => {
+    try {
+      const role = "admin"
+      const deleteUser = await dataBase.query("DELETE FROM users WHERE id = ?; SELECT id, name, email, address, created_at FROM users WHERE role = ?", [id, role]);
+      return deleteUser;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }

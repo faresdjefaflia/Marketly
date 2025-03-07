@@ -24,5 +24,13 @@ module.exports = {
     } catch (err) {
       throw new Error(err.message);
     }
+  },
+  deleteAdmin: async(id) => {
+    try {
+      const deleteUser = await adminsModules.deleteUser(id)
+      return deleteUser;
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }
