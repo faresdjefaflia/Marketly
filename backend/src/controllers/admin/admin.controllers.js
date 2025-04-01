@@ -90,7 +90,7 @@ module.exports = {
     
     // Extract the admin ID from the request parameters
     const id = req.params.id;
-    if (id == 1) return res.status(500).json({message: "sorry you cant edit this admin now"})
+    if (id === 1) return res.status(500).json({message: "sorry you cant edit this admin now"})
     try {
         // Call the service function to update the admin's role in the database
         const edit = await adminsServices.editRoleForAdmin(role, id);
@@ -111,7 +111,7 @@ module.exports = {
     try {
       //Store a variable for the ID of the account to be deleted.
       const id = req.params.id;
-      if (id == 1) return res.status(500).json({message: "sorry you cant delete this admin now", result: false})
+      if (id === 1) return res.status(500).json({message: "sorry you cant delete this admin now", result: false})
       //send req to database for delete account
       const deleteUser = await adminsServices.deleteAdmin(id);
       //look if delete is bad and send res to frontend with result
