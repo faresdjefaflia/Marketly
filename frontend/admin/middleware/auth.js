@@ -10,13 +10,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
       if (to.path !== '/login') return navigateTo('/login');
     } else {
       await verifyToken();
-      if (to.path === '/login') return navigateTo('/admin/reports');
+      if (to.path === '/login') return navigateTo('/reports');
     }
   } else {
     if (!token.value) {
       if (to.path !== '/login') return navigateTo('/login');
     } else {
-      if (to.path === '/login') return navigateTo('/admin/reports');
+      if (to.path === '/login') return navigateTo('/reports');
     }
   }
 

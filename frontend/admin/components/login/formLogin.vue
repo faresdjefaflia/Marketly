@@ -25,7 +25,7 @@
         body: dataLogin,
         credentials: 'include'
       });
-      navigateTo('/admin/reports/')
+      navigateTo('/reports/')
     } catch (err) {
       error.value = err.data.message;
     }

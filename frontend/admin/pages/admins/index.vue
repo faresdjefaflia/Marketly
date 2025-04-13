@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>admins</h1>
-  </div>
+  <section>
+    <AdminsFormAdd />
+  </section>
 </template>
 
 <script setup>
